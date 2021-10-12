@@ -16,7 +16,7 @@ file(GLOB sources "${SRC_DIR}/*.cpp")
 add_executable(${PROJECT_NAME} ${sources} ${includes})
 
 # Includes
-target_include_directories(${PROJECT_NAME} PRIVATE ${INCLUDE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIR})
 
 
 set(OUTPUT_ARTIFACT files.tar.gz)
