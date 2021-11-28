@@ -1,6 +1,66 @@
-#include <fmt/core.h>
+#if 0
+
+#include <boost/locale.hpp>
+#include <iostream>
+
+
+#include <ctime>
 
 int main()
 {
-  fmt::print("Hello, world!\n");
+  using namespace boost::locale;
+  using namespace std;
+  generator gen;
+  locale loc = gen("");
+  // Create system default locale
+
+  locale::global(loc);
+  // Make it system global
+
+  cout.imbue(loc);
+  // Set as default locale for output
+
+  cout << format("Today {1,date} at {1,time} we had run our first localization example") % time(0)
+       << endl;
+
+  cout << "This is how we show numbers in this locale " << as::number << 103.34 << endl;
+  cout << "This is how we show currency in this locale " << as::currency << 103.34 << endl;
+  cout << "This is typical date in the locale " << as::date << std::time(0) << endl;
+  cout << "This is typical time in the locale " << as::time << std::time(0) << endl;
+  cout << "This is upper case " << to_upper("Hello World!") << endl;
+  cout << "This is lower case " << to_lower("Hello World!") << endl;
+  cout << "This is title case " << to_title("Hello World!") << endl;
+  cout << "This is fold case " << fold_case("Hello World!") << endl;
+}
+
+#endif
+
+#include <indicators/progress_bar.hpp>
+#include <thread>
+#include <chrono>
+
+int main()
+{
+  using namespace indicators;
+  ProgressBar bar{
+    option::BarWidth{ 50 },
+    option::Start{ "[" },
+    option::Fill{ "=" },
+    option::Lead{ ">" },
+    option::Remainder{ " " },
+    option::End{ "]" },
+    option::PostfixText{ "Extracting Archive" },
+    option::ForegroundColor{ Color::green },
+    option::FontStyles{ std::vector<FontStyle>{ FontStyle::bold } }
+  };
+
+  // Update bar state
+  while (true) {
+    bar.tick();
+    if (bar.is_completed())
+      break;
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  }
+
+  return 0;
 }

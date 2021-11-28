@@ -11,9 +11,9 @@ class CppStarterProject(ConanFile):
     name = "CppStarterProject"
     version = "0.1"
     requires = (
-        "catch2/2.13.7",
         "fmt/8.0.1",
         "spdlog/1.9.2",
+        "boost/1.77.0"
     )
     generators = "cmake", "gcc", "txt", "cmake_find_package"
 

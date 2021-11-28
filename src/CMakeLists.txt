@@ -1,5 +1,7 @@
-find_package(fmt)
-find_package(spdlog)
+find_package(fmt REQUIRED)
+find_package(spdlog REQUIRED)
+find_package(indicators REQUIRED)
+find_package(Boost REQUIRED)
 
 
 # Generic test that uses conan libs
@@ -9,4 +11,9 @@ target_link_libraries(
   PRIVATE project_options
           project_warnings
           fmt::fmt
-          spdlog::spdlog)
+          spdlog::spdlog
+          Boost::locale
+)
+
+target_include_directories(${PROJECT_NAME} SYSTEM
+ PRIVATE "../submodules/indicators/include")
